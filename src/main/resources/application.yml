@@ -1,0 +1,50 @@
+
+spring:
+  #  security:
+  #    user:
+  #      name: user
+  #      password: 123456
+
+  #    devtools:
+  #      restart:
+  #        enabled: true  #设置开启热部署
+  #  freemarker:
+  #    cache: true      #页面不加载缓存，修改即时生效
+
+  #redis
+  redis:
+    host: localhost
+    port: 6379
+  #数据源
+  thymeleaf:
+    #prefix: classpath:/tempates
+    suffix: .html
+    mode: html5
+    cache: false #开发时关闭缓存,不然没法看到实时页面
+    encoding: utf-8
+
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cqhk?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password:
+#    hikari:
+#      max-lifetime: 1765000  #一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒以上
+#      maximum-pool-size: 15  #连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count)
+#服务器
+server:
+  port: 8080
+
+  servlet:
+    session:
+      cookie:
+        http-only: true
+      tracking-modes: cookie
+
+#mybatis配置
+mybatis:
+  type-aliases-package: com.web.modle
+  configLocation: classpath:/mybatis-config.xml
+

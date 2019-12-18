@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--系统首页-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="generator" content=""/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,">
+
+    <link rel="icon" type="image/x-icon" th:href="@{/images/common/logo.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/haiersoft.css}" media="screen,print"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!--引用layui前端框架-->
+    <link rel="stylesheet" type="text/css" th:href="@{../layui/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{../layui/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{../layui/layui/layui.all.js}"></script>
+
+</head>
+<body>
+<div th:replace="header :: commonHeader" class=""></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("companyDynamics").className = "active";
+    }
+</script>
+<div class="article half notice">
+    <div class="wrap-l">
+        <div class="title ue-clear">
+            <h2 name="announcement" id="announcement" type="text">公司最新公告</h2>
+            <a th:href="@{/allAnnouncement}" class="more" th:target="_self">更多</a>
+        </div>
+        <div class="content">
+            <ul class="notice-list" th:each="an:${announcement}">
+                <li class="ue-clear">
+                    <a href="javascript:;" onclick="display(this)" th:id="father_dataChange" class="notice-title"
+                       th:text="${an.getAName()}"></a>
+                    <div class="notice-time" th:text="${an.getATime()}"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="article1 half1 notice">
+    <div class="wrap-l">
+        <div class="title ue-clear">
+            <h2>公司最新新闻</h2>
+            <a th:href="@{/allNews}" class="more" th:target="_self">更多</a>
+        </div>
+        <div class="content">
+            <ul class="notice-list" th:each="an:${contents}">
+                <li class="ue-clear">
+                    <a href="javascript:;" onclick="news(this)" class="notice-title" th:text="${an.getNewsName()}"></a>
+                    <div class="notice-time" th:text="${an.getNTime()}"></div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: footer"></div>
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
+<script type="text/javascript" th:src="@{/js/userInform.js}"></script>
+</body>
+</html>

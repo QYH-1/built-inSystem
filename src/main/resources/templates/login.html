@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--登录界面-->
+<head>
+    <title>重庆慧堪内部系统 | 登录</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" th:src="@{/js/jquery-1.9.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/images/login/login.js}"></script>
+
+    <link rel="icon" type="image/x-icon" th:href="@{/images/common/logo.ico}">
+    <link th:href="@{/css/login.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<h1 style="color: red">慧堪 | 登录<sup>2019</sup></h1>
+<div class="login" style="margin-top:50px;">
+
+    <div class="header">
+        <div class="title">
+            <h2>重庆慧堪内部系统</h2>
+        </div>
+    </div>
+
+    <div class="web_qr_login" id="web_qr_login" style="display: block; height: auto;">
+
+        <!--登录-->
+        <div class="web_login" id="web_login">
+
+
+            <div class="login-box">
+
+                <div class="login_form">
+                    <form th:action="@{/index}" name="loginform" accept-charset="utf-8" id="login_form"
+                          class="loginForm" method="post">
+                        <input type="hidden" name="did" value="0"/>
+                        <input type="hidden" name="to" value="log"/>
+                        <!--判断-->
+                        <p style="color: red;font-size: 18px;text-align: center;" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+                        <div class="uinArea" id="uinArea">
+                            <label class="input-tips" for="username">帐号：</label>
+                            <div class="inputOuter" id="uArea">
+                                <input type="text" id="username" name="username" class="inputstyle"  required="" autofocus=""/>
+                            </div>
+                        </div>
+                        <div class="pwdArea" id="pwdArea">
+                            <label class="input-tips" for="password">密码：</label>
+                            <div class="inputOuter" id="pArea">
+                                <input type="password" id="password" name="password" class="inputstyle" required=""/>
+                            </div>
+                        </div>
+
+                        <div style="padding-left:50px;margin-top:20px;">
+                            <input type="submit" value="登 录" style="width:150px;margin-bottom: 20px;" class="button_blue"/>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <!--登录end-->
+    </div>
+</div>
+</body>
+</html>

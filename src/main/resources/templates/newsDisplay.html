@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/display.css}">
+    <!--引用layui前端框架-->
+    <link rel="stylesheet" type="text/css" th:href="@{../layui/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{../layui/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{../layui/layui/layui.all.js}"></script>
+
+</head>
+<body>
+<div class="layui-form">
+    <div class="top">
+        <input type="text" id="title" class="layui-imput title" lay-verify="required">
+        <ul>
+            <li><span>公告板块：</span><input id="aPlate"></li>
+            <li><span>发布部门：</span><input id="aDepartment"></li>
+            <li><span>发 布 人：</span><input id="aPublisher"></li>
+            <li><span>发布时间：</span><input id="aTime"></li>
+        </ul>
+    </div>
+    <div class="content">
+        <article>
+            <textarea  type="text" id="aContent" th:class="aContent" onfocus=this.blur()></textarea>
+        </article>
+    </div>
+</div>
+</body>
+</html>

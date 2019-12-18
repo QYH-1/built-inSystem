@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--主系统页面的头部-->
+<div th:fragment="commonHeader">
+    <div id="Header">
+        <!-- Head -->
+        <div id="Head">
+            <h1 class="companyName">重庆慧勘工业技术研究院有限公司</h1>
+            <script language="javascript">
+                function showmenu(id) {
+                    id.style.visibility = "visible";
+                }
+
+                function hidmenu() {
+                    UserList.style.visibility = "hidden";
+                }
+
+                document.onclick = hidmenu;
+            </script>
+            <div class="user">
+                <a style="float: left;" href="javascript:void(0);" onclick="imgUser()"><img id="userImage"
+                        th:src="${session.avatarImgUrl}" style="width: 50px;height: 50px;margin-top: -10px;margin-left: -10px;margin-right: 5px;"></a>
+                <a class="aa" href="javascript:showmenu(UserList)" id="userName"
+                   style="font-size: 18px;padding-top: 0.3em;"
+                   th:text="${session.tname}"></a>
+                <div id="UserList">
+                    <a href="javascript:void(0);" onclick="userInform()" style="font-size: 16px;">个人信息</a>
+                    <a href="javascript:void(0);" onclick="logOut()" style="font-size: 18px;">注销</a>
+                    <a href="javascript:void(0);" onclick="logOut()" style="font-size: 18px;">退出</a></div>
+            </div>
+        </div>
+        <!-- /Head -->
+        <nav>
+            <ul id="Navi">
+                <li id="companyDynamics">
+                    <a th:href="@{/index}"><img src="images/common/navi03.png" width="26" height="36"
+                                                alt="公司动态"><b><span>公司动态</span></b></a>
+                </li>
+                <li id="companySystem"><a th:href="@{/companySystem}"><img src="images/common/navi04.png"
+                                                                           width="34"
+                                                                           height="36"
+                                                                           alt="公司制度"><span>公司制度</span></a></li>
+                <li id="knowledgeManagement"><a th:href="@{/knowledgeManagement}"><img
+                        src="images/common/navi05.png"
+                        width="24" height="36"
+                        alt="知识管理"><span>知识管理</span></a>
+                </li>
+                <li id="communicationRecord"><a th:href="@{/communicationRecord}"><img
+                        src="images/common/navi02.png"
+                        width="36" height="36"
+                        alt="通讯录"><span>通 讯 录</span></a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</div>
+</html>

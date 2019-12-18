@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>公告发布</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="generator" content=""/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="icon" type="image/x-icon" th:href="@{/images/common/logo.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/haiersoft.css}" media="screen,print"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!--引用layui前端框架-->
+    <link rel="stylesheet" type="text/css" th:href="@{../layui/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{../layui/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{../layui/layui/layui.all.js}"></script>
+</head>
+
+<body>
+<div th:replace="header :: commonHeader"></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("companyDynamics").className = "active";
+    }
+</script>
+<div style="width: 60%;margin-left: 20%;margin-top: 30px;" class='layui-form'>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="font-size: 18px;font-weight:bold;">新闻名称</label>
+            <div class="layui-input-block">
+                <input style="width: 400px;font-size: 16px;" type="text" name="newsName" id="newsName" required=""
+                       lay-verify="required" placeholder="请输入新闻名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"
+                   style="font-size: 18px;font-weight:bold;">发&nbsp;&nbsp;布&nbsp;&nbsp;人</label>
+            <div class="layui-input-inline">
+                <input style="width: 200px;font-size: 16px;" id="nPublisher" name="nPublisher" required
+                       lay-verify="required" placeholder="请输入发布人" autocomplete="off" class="layui-input"
+                       th:value="${session.tname}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="font-size: 18px;font-weight:bold;">发布部门</label>
+            <div class="layui-input-block" style="width: 400px;">
+                <select name="nDepartment" lay-verify="" style="width: 400px;">
+                    <option style="width: 200px;" value=""></option>
+                    <option style="width: 200px;" value="研发部">研发部</option>
+                    <option style="width: 200px;" value="销售部">销售部</option>
+                    <option style="width: 200px;" value="综合部">综合部</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"
+                   style="font-size: 18px;font-weight:bold;">发布时间</label>
+            <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+                <input style="width: 200px;" type="text" class="layui-input" id="nTime" placeholder="请输入发布时间">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"
+                   style="font-size: 18px;font-weight:bold;">内容版块</label>
+            <div class="layui-input-block" style="width: 400px;">
+                <input type="text" name="nPlate" id="nPlate" class="layui-input"
+                       style="position:absolute;z-index:2;width:90%;" lay-verify="required" value=""
+                       placeholder="输入或选择内容版块"
+                       onkeyup="search()" autocomplete="off">
+                <select type="text" id="hc_select" lay-filter="hc_select" autocomplete="off"
+                        lay-verify="" class="layui-select" lay-search>
+                    <option value=""></option>
+                    <option value="研发部">研发部</option>
+                    <option value="销售部">销售部</option>
+                    <option value="综合部">综合部</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label" style="font-size: 18px;font-weight:bold;">公告内容</label>
+            <div class="layui-input-block">
+                <textarea style="height: 350px;" id="nContent" name="nContent" placeholder="请输入内容"
+                          class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <button style="margin-left: 150px;" type="button" class="layui-btn" id="file">
+                <i class="layui-icon">&#xe67c;</i>上传文件
+            </button>
+            <div class="layui-form-item" id="showTable" style="width:auto;display:none;">
+                <label class="layui-form-label"></label>
+                <div class="layui-input-block">
+                    <div class="layui-upload-list">
+                        <table class="layui-table" style="overflow: auto;font-size: 18px;text-align: center;"
+                               id="datas">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center;">文件名</th>
+                                <th style="text-align: center;">大小</th>
+                                <th style="text-align: center;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr id="fileList">
+                                <td>
+                                    <div>
+                                        <a href="javascript:void(0);" onclick="content()" id="fileName"
+                                           style="text-decoration:underline;font-size: 18px;"></a>
+                                    </div>
+                                </td>
+                                <td id="fileSize"></td>
+                                <td>
+                                    <div>
+                                        <a href="javascript:void(0);" onclick="delRow(this)" id="operation"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="sub">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!--<div th:replace="footer :: footer"></div>-->
+<script type="text/javascript" th:src="@{/js/releaseNews.js}"></script>
+</body>
+</html>

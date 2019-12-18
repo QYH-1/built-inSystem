@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/display.css}">
+    <!--引用layui前端框架-->
+    <link rel="stylesheet" type="text/css" th:href="@{../layui/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{../layui/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{../layui/layui/layui.all.js}"></script>
+
+</head>
+<body>
+
+<form id="permissionForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 40px;">
+    <input id="pageNum" type="hidden" name="pageNum"/>
+    <input id="id" type="hidden" name="id"/>
+    <div class="layui-form-item" style="margin-left:150px;">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-inline">
+            <input id="username" name="username" lay-verify="required" autocomplete="off" class="layui-input"
+                   type="text"/>
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-left:150px;">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-input-inline">
+            <input id="phone" name="phone" lay-verify="required" autocomplete="off" class="layui-input"
+                   type="text"/>
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-left:150px;">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-inline">
+            <input id="email" name="email" autocomplete="off" class="layui-input" type="text"/>
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-left:150px;">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="男" title="男">
+            <input type="radio" name="sex" value="女" title="女">
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-left:150px;">
+        <label class="layui-form-label">生日</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" id="birthday" name="birthday" style="width: 190px;">
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-left:150px;">
+        <label class="layui-form-label">所在部门</label>
+        <div class="layui-input-inline">
+            <input id="department" name="department" autocomplete="off" class="layui-input" type="text"
+                   disabled="disabled"/>
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-left:150px;">
+        <label class="layui-form-label">职位</label>
+        <div class="layui-input-inline">
+            <input id="position" name="position" autocomplete="off" class="layui-input" type="text"
+                   disabled="disabled"/>
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-top: 15px;">
+        <div class="layui-input-block" style="margin-left: 10px;text-align: center;">
+            <input class="layui-btn" lay-submit="" lay-filter="userSubmit" value="提交" style="width: 80px;"/>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/information.js}"></script>
+</body>
+</html>

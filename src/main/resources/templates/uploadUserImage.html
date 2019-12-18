@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/display.css}">
+    <!--引用layui前端框架-->
+    <link rel="stylesheet" type="text/css" th:href="@{../layui/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{../layui/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{../layui/layui/layui.all.js}"></script>
+
+</head>
+<body>
+<div class="layui-upload" style="text-align: center;">
+    <button type="button" class="layui-btn" id="test1" style="margin-top: 15px;">上传图片</button>
+    <input class="layui-upload-file" type="file" accept="" name="file">
+    <div class="layui-upload-list">
+        <img class="layui-upload-img" id="demo1" style="width: 92px;height: 92px;border: none;">
+        <p id="demoText"></p>
+    </div>
+<!--    <button type="button" class="layui-btn" id="submit" style="margin-top: 20px;">确定</button>-->
+</div>
+<script>
+    layui.use('upload', function () {
+        var $ = layui.jquery, upload = layui.upload;
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            , url: '/upload/headImg'
+            , acceptMime: 'image/*'
+            , auto: true
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                var imageUrl = res.data.src;
+                //如果上传失败
+                if (res.code > 0) {
+                    return layer.msg('上传失败');
+                } else {
+                    return layer.msg('上传成功');
+                }
+                //上传成功
+            }
+            , error: function () {
+                //失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

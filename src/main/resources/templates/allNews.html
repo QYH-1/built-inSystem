@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--系统首页-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="generator" content=""/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="icon" type="image/x-icon" th:href="@{/images/common/logo.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/haiersoft.css}" media="screen,print"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstap.min.css}">
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!--引用layui前端框架-->
+    <link rel="stylesheet" type="text/css" th:href="@{../layui/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{../layui/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{../layui/layui/layui.all.js}"></script>
+</head>
+
+<body>
+<div th:replace="header :: commonHeader"></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("companyDynamics").className = "active";
+    }
+</script>
+<div>
+    <button style="margin-left: 65%;font-size: 20px;margin-top: 20px;padding: 5px;border-radius:15px;" onclick="window.location.href = '/releaseNews'">发布新闻</button>
+</div>
+<div>
+    <div style=" height:420px;">
+        <div class="article half notice">
+            <div class="wrap-l">
+                <div class="title ue-clear">
+                    <h2>全部新闻</h2>
+                </div>
+                <div class="content">
+                    <ul class="notice-list" th:each="nw:${newList.list}">
+                        <li class="ue-clear">
+                            <a href="javascript:;" onclick="news(this)" class="notice-title" th:text="${nw.getNewsName()}"></a>
+                            <div class="notice-time" th:text="${nw.getNTime()}"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="linknav">
+        <ul class="pagination pagination-lg">
+            <li th:if="${newList.currentPage ==1}" class="disabled">
+                <a th:href="@{#}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li th:if="${newList.currentPage >1}" style="font-size: 20px;">
+                <a th:href="@{/allNews(currentPage=${newList.currentPage -1})}" aria-label="Previous">
+                    <span aria-hidden="true"><<</span>
+                </a>
+            </li>
+
+            <th:block th:each="i : ${#numbers.sequence(1,newList.totalPage)}">
+                <li th:if="${newList.currentPage == i }" class="active" style="background: yellow;">
+                    <a th:href="@{/allNews(currentPage=${i})}" th:text="${i}"></a>
+                </li>
+                <li th:if="${newList.currentPage != i }" style="font-size: 20px;">
+                    <a th:href="@{/allNews(currentPage=${i})}" th:text="${i}"></a>
+                </li>
+            </th:block>
+
+            <li th:if="${newList.currentPage == newList.totalPage}" class="disabled">
+                <a th:href="@{#}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li th:if="${newList.currentPage < newList.totalPage}">
+                <a th:href="@{/allNews(currentPage=${newList.currentPage+1})}" aria-label="Next">
+                    <span aria-hidden="true">>></span>
+                </a>
+            </li>
+            <li>
+                <span>共</span>
+                <span th:text="${newList.totalPage}"></span>
+                <span>页</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div th:replace="footer :: footer"></div>
+<script th:src="@{/js/all.js}"></script>
+</body>
+</html>
